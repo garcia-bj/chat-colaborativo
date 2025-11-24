@@ -5,10 +5,11 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
+export default function RegisterPage() {
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
+        name: "",
         email: "",
         password: "",
     });
@@ -29,7 +30,7 @@ export default function LoginPage() {
         setError("");
 
         try {
-            const response = await fetch("http://localhost:3000/auth/login", {
+            const response = await fetch("http://localhost:3000/auth/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -40,14 +41,14 @@ export default function LoginPage() {
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.message || "Credenciales inválidas");
+                throw new Error(data.message || "Error al registrarse");
             }
 
             // Save token and redirect to chat
             localStorage.setItem("token", data.access_token);
             router.push("/chat");
         } catch (err: any) {
-            setError(err.message || "Error al iniciar sesión");
+            setError(err.message || "Error al registrarse");
         } finally {
             setLoading(false);
         }
@@ -59,24 +60,24 @@ export default function LoginPage() {
 
     return (
         <div className="flex min-h-screen">
-            {/* Left Panel - Login Form */}
+            {/* Left Panel - Register Form */}
             <div className="flex-1 flex items-center justify-center p-8 bg-gradient-to-br from-primary via-primary/90 to-secondary">
                 <div className="w-full max-w-md space-y-8">
                     {/* Logo and Title */}
                     <div className="flex items-center gap-3 mb-8">
                         <div className="h-12 w-12 bg-white rounded-xl flex items-center justify-center p-2">
-                            <img src="/logo.jpg" alt="Siscolmenlab" className="h-full w-full object-contain" />
+                            <img src="/logo.jpg" alt="ColaboSim" className="h-full w-full object-contain" />
                         </div>
-                        <h1 className="text-2xl font-bold text-white">Siscolmenlab</h1>
+                        <h1 className="text-2xl font-bold text-white">ColaboSim</h1>
                     </div>
 
                     {/* Welcome Text */}
                     <div className="space-y-2">
-                        <h2 className="text-3xl font-bold text-white">Bienvenido</h2>
-                        <p className="text-white/80">Ingresa tus credenciales para acceder</p>
+                        <h2 className="text-3xl font-bold text-white">Crear Cuenta</h2>
+                        <p className="text-white/80">Regístrate para comenzar a colaborar</p>
                     </div>
 
-                    {/* Login Form */}
+                    {/* Register Form */}
                     <form onSubmit={handleSubmit} className="space-y-4">
                         {/* Error Message */}
                         {error && (
@@ -84,6 +85,25 @@ export default function LoginPage() {
                                 {error}
                             </div>
                         )}
+
+                        {/* Name Input */}
+                        <div className="relative">
+                            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-white/60">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                            </div>
+                            <Input
+                                type="text"
+                                name="name"
+                                placeholder="Nombre completo"
+                                value={formData.name}
+                                onChange={handleChange}
+                                className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/15 focus:border-white/40"
+                                required
+                            />
+                        </div>
 
                         {/* Email Input */}
                         <div className="relative">
@@ -115,11 +135,12 @@ export default function LoginPage() {
                             <Input
                                 type={showPassword ? "text" : "password"}
                                 name="password"
-                                placeholder="Contraseña"
+                                placeholder="Contraseña (mínimo 6 caracteres)"
                                 value={formData.password}
                                 onChange={handleChange}
                                 className="pl-10 pr-10 bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/15 focus:border-white/40"
                                 required
+                                minLength={6}
                             />
                             <button
                                 type="button"
@@ -140,22 +161,13 @@ export default function LoginPage() {
                             </button>
                         </div>
 
-                        {/* Remember Me & Forgot Password */}
-                        <div className="flex items-center justify-between text-sm">
-                            <label className="flex items-center gap-2 text-white/80 cursor-pointer">
-                                <input type="checkbox" className="w-4 h-4 rounded border-white/20 bg-white/10" />
-                                Recordarme
-                            </label>
-                            <a href="#" className="text-white/80 hover:text-white">¿Olvidaste tu contraseña?</a>
-                        </div>
-
-                        {/* Login Button */}
+                        {/* Register Button */}
                         <Button
                             type="submit"
                             className="w-full bg-accent hover:bg-accent/90 text-primary font-semibold py-6 shadow-lg"
                             disabled={loading}
                         >
-                            {loading ? "Iniciando sesión..." : "Iniciar Sesión"}
+                            {loading ? "Registrando..." : "Crear Cuenta"}
                         </Button>
 
                         {/* Divider */}
@@ -164,11 +176,11 @@ export default function LoginPage() {
                                 <div className="w-full border-t border-white/20"></div>
                             </div>
                             <div className="relative flex justify-center text-sm">
-                                <span className="px-4 bg-primary text-white/80">O continúa con</span>
+                                <span className="px-4 bg-primary text-white/80">O regístrate con</span>
                             </div>
                         </div>
 
-                        {/* Google Login Button */}
+                        {/* Google Register Button */}
                         <Button
                             type="button"
                             onClick={handleGoogleLogin}
@@ -195,11 +207,11 @@ export default function LoginPage() {
                             Google
                         </Button>
 
-                        {/* Register Link */}
+                        {/* Login Link */}
                         <p className="text-center text-sm text-white/80 mt-6">
-                            ¿No tienes una cuenta?{" "}
-                            <a href="/register" className="text-white font-semibold hover:underline">
-                                Regístrate
+                            ¿Ya tienes una cuenta?{" "}
+                            <a href="/login" className="text-white font-semibold hover:underline">
+                                Inicia Sesión
                             </a>
                         </p>
                     </form>
@@ -221,20 +233,21 @@ export default function LoginPage() {
                             strokeLinejoin="round"
                             className="w-16 h-16 text-primary"
                         >
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                            <path d="M8 10h.01M12 10h.01M16 10h.01" />
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                         </svg>
                     </div>
                     <h2 className="text-5xl font-bold text-foreground">
-                        Welcome<br />Back.
+                        Únete a<br />Nosotros.
                     </h2>
                     <p className="text-lg text-muted-foreground">
-                        Conectamos tus ideas con la realidad<br />
-                        a través de soluciones modernas.
+                        Colabora en tiempo real con tu equipo<br />
+                        y lleva tus proyectos al siguiente nivel.
                     </p>
                 </div>
             </div>
         </div>
     );
 }
-

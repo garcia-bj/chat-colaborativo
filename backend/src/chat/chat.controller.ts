@@ -1,13 +1,11 @@
-import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, Param } from '@nestjs/common';
 import { ChatService } from './chat.service';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard'; // We need to create this
 
 @Controller('chat')
 export class ChatController {
     constructor(private readonly chatService: ChatService) { }
 
     @Post('rooms')
-    // @UseGuards(JwtAuthGuard) // Uncomment when Guard is ready
     async createRoom(@Body('name') name: string) {
         return this.chatService.createRoom(name);
     }
@@ -20,5 +18,15 @@ export class ChatController {
     @Get('rooms/:roomId/messages')
     async getMessages(@Param('roomId') roomId: string) {
         return this.chatService.getMessages(roomId);
+    }
+
+    @Delete('rooms/:roomId')
+    async deleteRoom(@Param('roomId') roomId: string) {
+        return this.chatService.deleteRoom(roomId);
+    }
+
+    @Delete('messages/:messageId')
+    async deleteMessage(@Param('messageId') messageId: string) {
+        return this.chatService.deleteMessage(messageId);
     }
 }

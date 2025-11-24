@@ -35,4 +35,21 @@ export class ChatService {
             orderBy: { createdAt: 'asc' },
         });
     }
+
+    async deleteRoom(roomId: string) {
+        // Delete all messages in the room first
+        await this.prisma.message.deleteMany({
+            where: { roomId },
+        });
+        // Then delete the room
+        return this.prisma.room.delete({
+            where: { id: roomId },
+        });
+    }
+
+    async deleteMessage(messageId: string) {
+        return this.prisma.message.delete({
+            where: { id: messageId },
+        });
+    }
 }
