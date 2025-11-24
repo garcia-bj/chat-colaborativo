@@ -271,6 +271,18 @@ GOOGLE_CLIENT_ID=""
 
 # Secreto de cliente de Google OAuth
 GOOGLE_CLIENT_SECRET=""
+
+# ============================================
+# CONFIGURACIÓN DE URLS
+# ============================================
+# URL del frontend (donde se redirige después del login con Google)
+FRONTEND_URL=http://localhost:3001
+
+# URL del backend (para referencia)
+BACKEND_URL=http://localhost:3000
+
+# URL de callback de Google OAuth
+GOOGLE_CALLBACK_URL=http://localhost:3000/auth/google/redirect
 ```
 
 **Explicación de cada variable:**
@@ -289,6 +301,24 @@ GOOGLE_CLIENT_SECRET=""
 - **GOOGLE_CLIENT_ID** y **GOOGLE_CLIENT_SECRET**: 
   - Solo necesarios si quieres usar Google Login
   - Ver sección "Configurar Google OAuth" más abajo
+
+- **FRONTEND_URL**:
+  - URL donde corre el frontend de la aplicación
+  - En desarrollo: `http://localhost:3001`
+  - En producción: tu dominio del frontend (ej: `https://chat.tudominio.com`)
+  - Se usa para redirigir después del login con Google
+
+- **BACKEND_URL**:
+  - URL donde corre el backend de la aplicación
+  - En desarrollo: `http://localhost:3000`
+  - En producción: tu dominio del backend (ej: `https://api.tudominio.com`)
+  - Variable de referencia (no se usa actualmente en el código)
+
+- **GOOGLE_CALLBACK_URL**:
+  - URL a la que Google redirige después de la autenticación
+  - Debe coincidir exactamente con la configurada en Google Cloud Console
+  - En desarrollo: `http://localhost:3000/auth/google/redirect`
+  - En producción: `https://api.tudominio.com/auth/google/redirect`
 
 #### 3. Configurar Google OAuth (Opcional)
 
