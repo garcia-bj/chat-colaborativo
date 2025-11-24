@@ -177,7 +177,7 @@ export default function ChatPage() {
                 {currentRoom ? (
                     <>
                         {/* Header with online users */}
-                        <div className="border-b bg-background flex-shrink-0">
+                        <div className="sticky top-0 z-10 border-b bg-background flex-shrink-0">
                             <div className="h-16 flex items-center justify-between px-6">
                                 <div className="flex items-center gap-3">
                                     <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">

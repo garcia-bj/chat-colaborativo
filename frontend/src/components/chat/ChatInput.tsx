@@ -30,9 +30,6 @@ export function ChatInput({ onSendMessage, placeholder }: ChatInputProps) {
                         placeholder={placeholder || "Enviar mensaje..."}
                         className="pr-12 py-6 rounded-full border-2 focus:border-primary bg-muted/50"
                     />
-                    <div className="absolute right-2 bottom-2 text-xs text-muted-foreground">
-                        Presiona Enter para enviar
-                    </div>
                 </div>
                 <Button
                     onClick={handleSend}
