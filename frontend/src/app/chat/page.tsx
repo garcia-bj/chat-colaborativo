@@ -165,7 +165,7 @@ export default function ChatPage() {
     };
 
     return (
-        <div className="flex h-screen bg-background">
+        <div className="flex h-screen bg-background overflow-hidden">
             <ChatSidebar
                 rooms={rooms}
                 currentRoom={currentRoom}
@@ -173,11 +173,11 @@ export default function ChatPage() {
                 onCreateRoom={createRoom}
                 onDeleteRoom={deleteRoom}
             />
-            <div className="flex-1 flex flex-col">
+            <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
                 {currentRoom ? (
                     <>
                         {/* Header with online users */}
-                        <div className="border-b bg-background">
+                        <div className="border-b bg-background flex-shrink-0">
                             <div className="h-16 flex items-center justify-between px-6">
                                 <div className="flex items-center gap-3">
                                     <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">

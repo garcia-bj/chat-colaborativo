@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ColaboSim",
+  title: "Siscolmenlab",
   description: "Chat colaborativo en tiempo real",
 };
 

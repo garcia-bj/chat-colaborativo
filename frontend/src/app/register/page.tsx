@@ -66,15 +66,15 @@ export default function RegisterPage() {
                     {/* Logo and Title */}
                     <div className="flex items-center gap-3 mb-8">
                         <div className="h-12 w-12 bg-white rounded-xl flex items-center justify-center p-2">
-                            <img src="/logo.jpg" alt="ColaboSim" className="h-full w-full object-contain" />
+                            <img src="/logo.jpg" alt="Siscolmenlab" className="h-full w-full object-contain" />
                         </div>
-                        <h1 className="text-2xl font-bold text-white">ColaboSim</h1>
+                        <h1 className="text-2xl font-bold text-white">Siscolmenlab</h1>
                     </div>
 
                     {/* Welcome Text */}
                     <div className="space-y-2">
                         <h2 className="text-3xl font-bold text-white">Crear Cuenta</h2>
-                        <p className="text-white/80">Regístrate para comenzar a colaborar</p>
+                        <p className="text-white/80">Regístrate para comenzar con Siscolmenlab</p>
                     </div>
 
                     {/* Register Form */}

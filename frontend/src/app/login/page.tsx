@@ -226,11 +226,11 @@ export default function LoginPage() {
                         </svg>
                     </div>
                     <h2 className="text-5xl font-bold text-foreground">
-                        Welcome<br />Back.
+                        Bienvenido<br />de nuevo.
                     </h2>
                     <p className="text-lg text-muted-foreground">
-                        Conectamos tus ideas con la realidad<br />
-                        a través de soluciones modernas.
+                        Chat colaborativo en tiempo real<br />
+                        con Siscolmenlab.
                     </p>
                 </div>
             </div>

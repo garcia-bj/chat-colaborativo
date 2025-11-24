@@ -27,7 +27,7 @@ export function ChatSidebar({ rooms, currentRoom, onJoinRoom, onCreateRoom, onDe
     };
 
     return (
-        <div className="w-80 border-r border-border flex flex-col bg-background">
+        <div className="w-80 border-r border-border flex flex-col bg-background flex-shrink-0">
             {/* Logo Header */}
             <div className="p-6 border-b border-border">
                 <div className="flex items-center gap-3">
