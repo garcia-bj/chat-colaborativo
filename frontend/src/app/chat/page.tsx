@@ -39,7 +39,7 @@ export default function ChatPage() {
             console.error("Error decoding token:", e);
         }
 
-        const newSocket = io("http://localhost:3000", {
+        const newSocket = io(process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000", {
             extraHeaders: {
                 Authorization: `Bearer ${token}`,
             },
@@ -100,7 +100,7 @@ export default function ChatPage() {
 
         setSocket(newSocket);
 
-        fetch("http://localhost:3000/chat/rooms")
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000"}/chat/rooms`)
             .then((res) => {
                 if (!res.ok) throw new Error("Failed to connect to backend");
                 return res.json();
@@ -122,7 +122,7 @@ export default function ChatPage() {
         setCurrentRoom(room);
         setMessages([]);
 
-        fetch(`http://localhost:3000/chat/rooms/${room.id}/messages`)
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000"}/chat/rooms/${room.id}/messages`)
             .then((res) => res.json())
             .then((data) => setMessages(data))
             .catch((err) => console.error("Error fetching messages:", err));

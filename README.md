@@ -392,12 +392,51 @@ Se abrirá en tu navegador en `http://localhost:5555`
 
 ### Configuración del Frontend
 
-El frontend no requiere configuración adicional. Las URLs del backend están configuradas para `http://localhost:3000`.
+#### 1. Crear el archivo de variables de entorno (Opcional)
 
-**Si necesitas cambiar el puerto del backend:**
-1. Abre `frontend/src/app/chat/page.tsx`
-2. Busca todas las ocurrencias de `http://localhost:3000`
-3. Cámbialas por la nueva URL
+El frontend usa variables de entorno para configurar la URL del backend.
+
+```bash
+# Asegúrate de estar en la carpeta frontend
+cd frontend
+
+# Crea el archivo .env.local
+```
+
+**En Windows:**
+```bash
+notepad .env.local
+```
+
+**En Mac/Linux:**
+```bash
+nano .env.local
+# o
+code .env.local  # Si tienes VS Code instalado
+```
+
+#### 2. Configurar la URL del backend
+
+Copia y pega el siguiente contenido en el archivo `.env.local`:
+
+```env
+# ============================================
+# CONFIGURACIÓN DEL BACKEND
+# ============================================
+# URL base del servidor backend
+# En desarrollo: http://localhost:3000
+# En producción: cambiar por tu dominio (ej: https://api.tudominio.com)
+NEXT_PUBLIC_BACKEND_URL=http://localhost:3000
+```
+
+**Nota:** Si no creas este archivo, la aplicación usará `http://localhost:3000` por defecto.
+
+**¿Por qué `NEXT_PUBLIC_`?**
+En Next.js, las variables de entorno que comienzan con `NEXT_PUBLIC_` están disponibles en el navegador. Esto es necesario para que el frontend pueda hacer peticiones al backend.
+
+**Cambiar la URL del backend:**
+1. Si tu backend está en otro puerto o dominio, simplemente cambia el valor de `NEXT_PUBLIC_BACKEND_URL`
+2. Reinicia el servidor de desarrollo del frontend (`npm run dev`)
 
 ---
 
@@ -862,12 +901,6 @@ Sí, pero necesitas hacer algunos cambios:
 3. **Base de datos**: Modifica `prisma/schema.prisma` y ejecuta `npx prisma db push`
 4. **WebSocket**: Agrega nuevos eventos en `chat.gateway.ts`
 
-### ¿Puedo cambiar el diseño?
-
-Sí, los estilos están en:
-- `frontend/src/app/globals.css` (estilos globales)
-- Componentes individuales (clases de Tailwind CSS)
-- `tailwind.config.ts` (configuración de Tailwind)
 
 ### ¿Cómo agrego más métodos de autenticación?
 
@@ -889,36 +922,6 @@ Sí, Prisma soporta:
 
 Solo necesitas cambiar el `provider` en `prisma/schema.prisma` y la `DATABASE_URL` en `.env`.
 
-### ¿Cómo escalo la aplicación para más usuarios?
-
-1. **Horizontal scaling**: Múltiples instancias del backend con load balancer
-2. **Redis**: Para sesiones compartidas entre instancias
-3. **Socket.IO adapter**: Para sincronizar WebSockets entre instancias
-4. **CDN**: Para servir archivos estáticos del frontend
-5. **Base de datos**: Usar réplicas de lectura
-
-### ¿Dónde puedo aprender más?
-
-- **NestJS**: [https://docs.nestjs.com/](https://docs.nestjs.com/)
-- **Next.js**: [https://nextjs.org/docs](https://nextjs.org/docs)
-- **Prisma**: [https://www.prisma.io/docs](https://www.prisma.io/docs)
-- **Socket.IO**: [https://socket.io/docs/](https://socket.io/docs/)
-- **Tailwind CSS**: [https://tailwindcss.com/docs](https://tailwindcss.com/docs)
-
----
-
-## 🤝 Contribuir
-
-¿Quieres mejorar esta aplicación? ¡Genial!
-
-1. Haz un fork del repositorio
-2. Crea una rama para tu feature: `git checkout -b feature/nueva-funcionalidad`
-3. Haz commit de tus cambios: `git commit -m 'Agrega nueva funcionalidad'`
-4. Push a la rama: `git push origin feature/nueva-funcionalidad`
-5. Abre un Pull Request
-
----
-
 ## 📄 Licencia
 
 Este proyecto está bajo la Licencia MIT. Puedes usarlo, modificarlo y distribuirlo libremente.
@@ -931,27 +934,5 @@ Este proyecto está bajo la Licencia MIT. Puedes usarlo, modificarlo y distribui
 - GitHub: [@garcia-bj](https://github.com/garcia-bj)
 - Proyecto: [Chat Colaborativo](https://github.com/garcia-bj/chat-colaborativo)
 
----
-
-## 🙏 Agradecimientos
-
-- **NestJS** por el excelente framework de backend
-- **Next.js** por la increíble experiencia de desarrollo
-- **Prisma** por simplificar el trabajo con bases de datos
-- **shadcn/ui** por los hermosos componentes
-- **Socket.IO** por hacer el tiempo real tan fácil
-- **Tailwind CSS** por los estilos rápidos y consistentes
-
----
-
-## 📞 Soporte
-
-¿Tienes problemas? ¿Preguntas?
-
-1. Revisa la sección de [Solución de problemas](#solución-de-problemas)
-2. Abre un issue en GitHub
-3. Contacta al autor
-
----
 
 **¡Disfruta construyendo con Siscolmenlab!** 🚀
